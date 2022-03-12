@@ -5,8 +5,7 @@ import NotFound from './views/NotFound.vue'
 
 /** @type {import('vue-router').RouterOptions['routes']} */
 export const routes = [
-  { path: '/Home', component: Home, meta: { title: 'Home' } },
-  { path: '/', redirect: '/Home' },
+  { path: '/', component: Home, meta: { title: 'Home' } },
   {
     path: '/teams',
     meta: { title: 'Teams' },
@@ -14,5 +13,5 @@ export const routes = [
     props: true,
   },
   { path: '/input', component: Input, meta: { title: 'Input'} },
-  { path: '/:path(.*)', component: NotFound },
+  { path: '/:path(.*)', redirect: '/' },
 ]

@@ -4,6 +4,6 @@ import Lead from '@/components/Lead.vue'
 
 <template>
   <div>
-    <Lead title="Winter 21/22" route="Teams"/>
+    <Lead title="Winter 21/22"/>
   </div>
 </template>

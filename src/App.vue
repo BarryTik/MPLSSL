@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import Nav from '@/components/Nav.vue'
 
 const counter = ref(0)
 
@@ -15,11 +16,15 @@ setInterval(() => {
   background-repeat: no-repeat;
   background-size: cover;
 }
+main{
+  padding-top: 64px;
+}
 
 </style>
 
 <template>
   <div class="background" v-bind:style="{ backgroundImage:'url(../public/MPLSSL19.jpg)' }">
+    <Nav/>
     <main>
       <router-view
       />

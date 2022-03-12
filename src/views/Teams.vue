@@ -62,7 +62,7 @@ function calculateStats(games){
 
 <template>
   <div>
-    <Lead title="Teams" route="Home"/>
+    <Lead title="Teams"/>
   </div>
   <div v-if="reactives.loading">
     <h2>Loading</h2>
