@@ -74,7 +74,7 @@ function calculateStats(games){
       </tr>
       <tr v-for="(value, key) in JSON.parse(JSON.stringify(reactives.teams))" :key="key">
         <td>place</td><td>{{key}}</td><td>w</td><td>l</td><td>t</td><td>pts</td><td>gf</td><td>ga</td><td>gd</td>
-        <td>{{findCaptains(value.Players)}}</td>
+        <!-- <td>{{findCaptains(value.Players)}}</td> -->
         <td>paid</td>
       </tr>
     </table>

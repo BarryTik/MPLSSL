@@ -17,7 +17,7 @@
                 v-for="match in Object.keys(reactives.games[reactives.day].Matches)" :key="match"
                 v-on:click="chooseMatch(match)"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
-                >{{reactives.games[reactives.day].Matches[match].team1}} vs {{reactives.games[reactives.day].Matches[match].team2}} {{reactives.games[reactives.day].Matches[match].time}}
+                >{{reactives.teams[reactives.games[reactives.day].Matches[match].team1].name}} vs {{reactives.teams[reactives.games[reactives.day].Matches[match].team2].name}} {{reactives.games[reactives.day].Matches[match].time}}
             </button>
         </div>
         <div v-if="reactives.match && reactives.matchSelected" 
@@ -26,19 +26,21 @@
             <h2
                 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10  bg-gray-50 lead"
             >
-                {{reactives.games[reactives.day].Matches[reactives.match].team1}} vs {{reactives.games[reactives.day].Matches[reactives.match].team2}} {{reactives.games[reactives.day].Matches[reactives.match].time}}
+                {{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].name}} vs {{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].name}} {{reactives.games[reactives.day].Matches[reactives.match].time}}
             </h2>
         </div>
         <div v-if="reactives.games[reactives.day] && reactives.matchSelected">
             <button
                 v-on:click="chooseTeam(reactives.games[reactives.day].Matches[reactives.match].team1)"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
-                >{{reactives.games[reactives.day].Matches[reactives.match].team1}}
+                :style="{ backgroundColor: reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].color }"
+                >{{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].name}}
             </button>
             <button
                 v-on:click="chooseTeam(reactives.games[reactives.day].Matches[reactives.match].team2)"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
-                >{{reactives.games[reactives.day].Matches[reactives.match].team2}}
+                :style="{ backgroundColor: reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].color }"
+                >{{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].name}}
             </button>
         </div>
 
@@ -109,7 +111,9 @@
         day: '',
         match: NaN,
         team: '',
+        teams: {},
     })
+    loadTeams();
     loadGames();
 
 
@@ -118,6 +122,13 @@
             reactives.games = snapshot.val();
             reactives.loading = false;
         });
+    }
+
+    async function loadTeams(){
+        onValue(ref(db, 'winter-21-22-2/Teams'), (snapshot) => {
+            reactives.teams = snapshot.val();
+            console.log(JSON.parse(JSON.stringify(reactives.teams)));
+        })
     }
 
     function dropdownFunction(){
