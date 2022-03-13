@@ -6,7 +6,7 @@
         LOADING
     </div>
     <div v-else>
-        <div class="dropdown">
+        <div class="dropdown" v-show="reactives.showDropdown">
             <button v-on:click="dropdownFunction()" class="dropbtn">Choose Date and Match</button>
             <div id="gameDropdown" class="dropdown-content">
                 <a v-for="day in Object.keys(reactives.games)" :key="day" v-on:click="chooseDay(day)" href="#">{{day}}</a>
@@ -21,7 +21,8 @@
             </button>
         </div>
         <div v-if="reactives.match && reactives.matchSelected" 
-            class="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between"
+            class="max-w-screen-xl px-4 mx-auto sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between"
+            v-on:click="changeMatch()"
         >
             <h2
                 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10  bg-gray-50 lead"
@@ -42,6 +43,16 @@
                 :style="{ backgroundColor: reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].color }"
                 >{{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].name}}
             </button>
+        </div>
+        <div v-if="reactives.team && reactives.teamSelected">
+            <div v-for="player in _.filter(reactives.players, ['Team', reactives.team])" :key="player">
+                <button
+                    v-on:click="playerScored(player)"
+                    :style="{ backgroundColor: reactives.teams[reactives.team].color }"
+                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
+                    >{{player.Name}}
+                </button>
+            </div>
         </div>
 
         
@@ -102,18 +113,23 @@
     import { ref, onValue } from "firebase/database";
     import { reactive, ref as vueRef } from 'vue';
     import Lead from '@/components/Lead.vue'
+    import _ from 'lodash';
 
     const reactives = reactive({
         loading: true,
         daySelected: false,
         matchSelected: false,
+        teamSelected: false,
+        showDropdown: true,
         games: {},
         day: '',
         match: NaN,
         team: '',
         teams: {},
+        players: {},
     })
     loadTeams();
+    loadPlayers();
     loadGames();
 
 
@@ -127,7 +143,12 @@
     async function loadTeams(){
         onValue(ref(db, 'winter-21-22-2/Teams'), (snapshot) => {
             reactives.teams = snapshot.val();
-            console.log(JSON.parse(JSON.stringify(reactives.teams)));
+        })
+    }
+
+    async function loadPlayers() {
+        onValue(ref(db, 'winter-21-22-2/Players'), (snapshot) => {
+            reactives.players = snapshot.val();
         })
     }
 
@@ -135,11 +156,13 @@
         document.getElementById("gameDropdown").classList.toggle("show");
         reactives.daySelected = false;
         reactives.matchSelected = false;
+        reactives.teamSelected= false;
     };
 
     function chooseDay(day){
         reactives.day = day;
         reactives.daySelected = true;
+        reactives.showDropdown = false;
     }
 
     function chooseMatch(match){
@@ -150,7 +173,18 @@
     
     function chooseTeam(team){
         reactives.team = team;
-        console.log(team);
+        reactives.teamSelected = true;
+    }
+
+    function playerScored(player){
+        console.log(player.Name);
+    }
+
+    function changeMatch(){
+        reactives.daySelected = false;
+        reactives.matchSelected = false;
+        reactives.teamSelected= false;
+        reactives.showDropdown = true;
     }
 
     window.onclick = function(event) {
