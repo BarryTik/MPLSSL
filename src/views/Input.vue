@@ -66,7 +66,7 @@
                 >{{props.teams[props.games[reactives.day].Matches[reactives.match].team2].name}}
             </button>
         </div>
-        <div v-if="typeof(reactives.team) === 'number' && reactives.teamSelected">
+        <div v-if="reactives.team && reactives.teamSelected">
             <div v-for="player in _.filter(props.players, ['Team', reactives.team])" :key="player">
                 <button
                     v-on:click="playerScored(player)"
