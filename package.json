@@ -10,6 +10,7 @@
     "bootstrap-vue": "^2.21.2",
     "firebase": "^9.6.4",
     "firebase-admin": "^10.0.2",
+    "json-query": "^2.2.2",
     "lodash": "^4.17.21",
     "vue": "^3.2.28",
     "vue-multiselect": "^2.1.6",
