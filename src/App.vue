@@ -1,12 +1,38 @@
 <script setup>
-import { ref } from 'vue';
-import Nav from '@/components/Nav.vue'
+  import { db } from "./firebase";
+  import { ref, onValue } from "firebase/database";
+  import { reactive, ref as vueRef } from 'vue';
+  import Nav from '@/components/Nav.vue'
 
-const counter = ref(0)
 
-setInterval(() => {
-  counter.value++
-}, 1000)
+  const reactives = reactive({
+      games: {},
+      teams: {},
+      players: {},
+  })
+
+  loadTeams();
+  loadPlayers();
+  loadGames();
+
+
+  async function loadGames(){
+      onValue(ref(db, 'winter-21-22-2/Games'), (snapshot) => {
+          reactives.games = snapshot.val();
+      });
+  }
+
+  async function loadTeams(){
+      onValue(ref(db, 'winter-21-22-2/Teams'), (snapshot) => {
+          reactives.teams = snapshot.val();
+      })
+  }
+
+  async function loadPlayers() {
+      onValue(ref(db, 'winter-21-22-2/Players'), (snapshot) => {
+          reactives.players = snapshot.val();
+      })
+  }
 </script>
 
 <style scoped>
@@ -27,6 +53,9 @@ main{
     <Nav/>
     <main>
       <router-view
+      :games="reactives.games"
+      :teams="reactives.teams"
+      :players="reactives.players"
       />
     </main>
   </div>

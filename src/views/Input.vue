@@ -9,15 +9,15 @@
         <div class="dropdown" v-show="reactives.showDropdown">
             <button v-on:click="dropdownFunction()" class="dropbtn">Choose Date and Match</button>
             <div id="gameDropdown" class="dropdown-content">
-                <a v-for="day in Object.keys(reactives.games)" :key="day" v-on:click="chooseDay(day)" href="#">{{day}}</a>
+                <a v-for="day in _.sortBy(Object.keys(props.games), function(o){return props.games[o].Date;})" :key="day" v-on:click="chooseDay(day)" href="#">{{day}}</a>
             </div>
         </div>
-        <div v-if="reactives.games[reactives.day] && reactives.daySelected">
+        <div v-if="props.games[reactives.day] && reactives.daySelected">
             <button
-                v-for="match in Object.keys(reactives.games[reactives.day].Matches)" :key="match"
+                v-for="match in Object.keys(props.games[reactives.day].Matches)" :key="match"
                 v-on:click="chooseMatch(match)"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
-                >{{reactives.teams[reactives.games[reactives.day].Matches[match].team1].name}} vs {{reactives.teams[reactives.games[reactives.day].Matches[match].team2].name}} {{reactives.games[reactives.day].Matches[match].time}}
+                >{{props.teams[props.games[reactives.day].Matches[match].team1].name}} vs {{props.teams[props.games[reactives.day].Matches[match].team2].name}} {{props.games[reactives.day].Matches[match].time}}
             </button>
         </div>
         <div  v-if="reactives.match && reactives.matchSelected">
@@ -28,65 +28,65 @@
                 <h2
                     class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10  bg-gray-50 lead"
                 >
-                    {{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].name}} vs {{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].name}}
+                    {{props.teams[props.games[reactives.day].Matches[reactives.match].team1].name}} vs {{props.teams[props.games[reactives.day].Matches[reactives.match].team2].name}}
                 </h2>
             </span>
-            <span v-if="reactives.games[reactives.day].Matches[reactives.match].points" class="bg-gray-50" style="display:inline-block">
+            <span v-if="props.games[reactives.day].Matches[reactives.match].points" class="bg-gray-50" style="display:inline-block">
                 <div class="points">
-                    <ul v-if="reactives.games[reactives.day].Matches[reactives.match].points[reactives.games[reactives.day].Matches[reactives.match].team1]">
-                        <li><strong>{{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].name}}</strong></li>
-                        <li v-for="player in Object.keys(reactives.games[reactives.day].Matches[reactives.match].points[reactives.games[reactives.day].Matches[reactives.match].team1])" :key="player">
-                            {{player}} {{reactives.games[reactives.day].Matches[reactives.match].points[reactives.games[reactives.day].Matches[reactives.match].team1][player]}}
+                    <ul v-if="props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team1]">
+                        <li><strong>{{props.teams[props.games[reactives.day].Matches[reactives.match].team1].name}}</strong></li>
+                        <li v-for="player in Object.keys(props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team1])" :key="player">
+                            {{player}} {{props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team1][player]}}
                         </li>
                     </ul>
                 </div>
                 <div class="points">
-                    <ul v-if="reactives.games[reactives.day].Matches[reactives.match].points[reactives.games[reactives.day].Matches[reactives.match].team2]">
-                        <li><strong>{{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].name}}</strong></li>
-                        <li v-for="player in Object.keys(reactives.games[reactives.day].Matches[reactives.match].points[reactives.games[reactives.day].Matches[reactives.match].team2])" :key="player">
-                            {{player}} {{reactives.games[reactives.day].Matches[reactives.match].points[reactives.games[reactives.day].Matches[reactives.match].team2][player]}}
+                    <ul v-if="props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team2]">
+                        <li><strong>{{props.teams[props.games[reactives.day].Matches[reactives.match].team2].name}}</strong></li>
+                        <li v-for="player in Object.keys(props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team2])" :key="player">
+                            {{player}} {{props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team2][player]}}
                         </li>
                     </ul>
                 </div>
             </span>
         </div>
-        <div v-if="reactives.games[reactives.day] && reactives.matchSelected">
+        <div v-if="props.games[reactives.day] && reactives.matchSelected">
             <button
-                v-on:click="chooseTeam(reactives.games[reactives.day].Matches[reactives.match].team1)"
+                v-on:click="chooseTeam(props.games[reactives.day].Matches[reactives.match].team1)"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
-                :class="reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].color !== 'white'? 'text-white' : 'border-black'"
-                :style="{ backgroundColor: reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].color }"
-                >{{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team1].name}}
+                :class="props.teams[props.games[reactives.day].Matches[reactives.match].team1].color !== 'white'? 'text-white' : 'border-black'"
+                :style="{ backgroundColor: props.teams[props.games[reactives.day].Matches[reactives.match].team1].color }"
+                >{{props.teams[props.games[reactives.day].Matches[reactives.match].team1].name}}
             </button>
             <button
-                v-on:click="chooseTeam(reactives.games[reactives.day].Matches[reactives.match].team2)"
+                v-on:click="chooseTeam(props.games[reactives.day].Matches[reactives.match].team2)"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
-                :class="reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].color !== 'white'? 'text-white' : 'border-black'"
-                :style="{ backgroundColor: reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].color }"
-                >{{reactives.teams[reactives.games[reactives.day].Matches[reactives.match].team2].name}}
+                :class="props.teams[props.games[reactives.day].Matches[reactives.match].team2].color !== 'white'? 'text-white' : 'border-black'"
+                :style="{ backgroundColor: props.teams[props.games[reactives.day].Matches[reactives.match].team2].color }"
+                >{{props.teams[props.games[reactives.day].Matches[reactives.match].team2].name}}
             </button>
         </div>
         <div v-if="typeof(reactives.team) === 'number' && reactives.teamSelected">
-            <div v-for="player in _.filter(reactives.players, ['Team', reactives.team])" :key="player">
+            <div v-for="player in _.filter(props.players, ['Team', reactives.team])" :key="player">
                 <button
                     v-on:click="playerScored(player)"
-                    :style="{ backgroundColor: reactives.teams[reactives.team].color }"
-                    :class="reactives.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
+                    :style="{ backgroundColor: props.teams[reactives.team].color }"
+                    :class="props.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
                     class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
                     >{{player.Name}}
                 </button>
             </div>
             <button
                 v-on:click="playerScored('Sub')"
-                :style="{ backgroundColor: reactives.teams[reactives.team].color }"
-                :class="reactives.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
+                :style="{ backgroundColor: props.teams[reactives.team].color }"
+                :class="props.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none opacity-50"
                 >Sub
             </button>
             <button
                 v-on:click="playerScored('Own Goal')"
-                :style="{ backgroundColor: reactives.teams[reactives.team].color }"
-                :class="reactives.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
+                :style="{ backgroundColor: props.teams[reactives.team].color }"
+                :class="props.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none opacity-50"
                 >Own Goal
             </button>
@@ -133,6 +133,8 @@
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  max-height: 350px;
+  overflow-y: scroll;
 }
 
 /* Links inside the dropdown */
@@ -157,42 +159,22 @@
     import Lead from '@/components/Lead.vue'
     import _ from 'lodash';
 
+    const props = defineProps({
+        teams: Object,
+        players: Object,
+        games: Object
+    });
+    
     const reactives = reactive({
-        loading: true,
+        loading: false,
         daySelected: false,
         matchSelected: false,
         teamSelected: false,
         showDropdown: true,
-        games: {},
         day: '',
         match: NaN,
         team: '',
-        teams: {},
-        players: {},
     })
-    loadTeams();
-    loadPlayers();
-    loadGames();
-
-
-    async function loadGames(){
-        onValue(ref(db, 'winter-21-22-2/Games'), (snapshot) => {
-            reactives.games = snapshot.val();
-            reactives.loading = false;
-        });
-    }
-
-    async function loadTeams(){
-        onValue(ref(db, 'winter-21-22-2/Teams'), (snapshot) => {
-            reactives.teams = snapshot.val();
-        })
-    }
-
-    async function loadPlayers() {
-        onValue(ref(db, 'winter-21-22-2/Players'), (snapshot) => {
-            reactives.players = snapshot.val();
-        })
-    }
 
     function dropdownFunction(){
         document.getElementById("gameDropdown").classList.toggle("show");
