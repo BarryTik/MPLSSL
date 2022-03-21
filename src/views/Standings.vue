@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref as vueRef } from 'vue';
+import { reactive } from 'vue';
 import _ from 'lodash';
 import jsonQuery from 'json-query';
 
@@ -85,7 +85,7 @@ function calculateStats(){
   reactives.loading = false;
 }
 
-
+const placeArray = ['1st','2nd','3rd','4th','5th','6th','7th','8th']
 
 </script>
 
@@ -102,7 +102,7 @@ function calculateStats(){
         <th>Place</th><th>Team</th><th>W</th><th>L</th><th>T</th><th>Pts</th><th>GF</th><th>GA</th><th>GD</th>
       </tr>
       <tr v-for="(value, key) in reactives.totalScores" :key="key">
-        <td>{{key + 1}}</td><td>{{props.teams[value.team].name}}</td><td>{{value.W}}</td><td>{{value.L}}</td><td>{{value.T}}</td><td>{{value.Pts}}</td><td>{{value.GF}}</td><td>{{value.GA}}</td><td>{{value.GD}}</td>
+        <td>{{placeArray[key]}}</td><td :style="{backgroundColor: props.teams[value.team].color, color: props.teams[value.team].color === 'black' || props.teams[value.team].color === 'blue'? 'white': 'black'}">{{props.teams[value.team].name}}</td><td>{{value.W}}</td><td>{{value.L}}</td><td>{{value.T}}</td><td>{{value.Pts}}</td><td>{{value.GF}}</td><td>{{value.GA}}</td><td>{{value.GD}}</td>
       </tr>
     </table>
   </div>

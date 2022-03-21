@@ -52,7 +52,7 @@
         "
       >
         <li class="text-gray-100"><router-link @click="closeNav" to="/Standings">Standings</router-link></li>
-        <li class="text-gray-100"><router-link @click="closeNav" to="/About">About</router-link></li>
+        <li class="text-gray-100"><router-link @click="closeNav" to="/GoldenBoot">Golden Boot</router-link></li>
         <li class="text-gray-100"><router-link @click="closeNav" to="/Input">Input</router-link></li>
       </ul>
     </nav>
