@@ -59,11 +59,12 @@
   </div>
 </template>
 <style scoped>
-    .dropdown{
-        z-index: 3;
-        position: absolute;
-        background-color: blue;
-    }
+  .dropdown{
+      z-index: 3;
+      position: absolute;
+      background-color: blue;
+      position: fixed;
+  }
 </style>
 <script>
 import { ref } from 'vue';

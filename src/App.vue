@@ -28,7 +28,7 @@
       })
   }
 
-  async function loadPlayers() {
+  async function loadPlayers(){
       onValue(ref(db, 'winter-21-22-2/Players'), (snapshot) => {
           reactives.players = snapshot.val();
       })
@@ -37,10 +37,10 @@
 
 <style scoped>
 .background{
-  height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 main{
   padding-top: 64px;

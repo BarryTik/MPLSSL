@@ -8,7 +8,7 @@
   <div v-else class="golden-boot bg-gray-50">
     <table>
         <tr v-for="player in reactives.sortedPlayers" :key="player">
-            <td>{{player}}</td>
+            <td :style="{ backgroundColor: (props.players[player]? props.teams[props.players[player].Team].color : 'white'), color : (props.players[player]? (props.teams[props.players[player].Team].color === 'black' || props.teams[props.players[player].Team].color === ' blue' ? 'white':'black') :'black')}">{{props.players[player]? props.players[player].Name : player}}</td>
             <td>{{reactives.pointsByPlayer[player]}}</td>
         </tr>
     </table>
@@ -66,6 +66,9 @@
             r[Object.keys(v)[0]] = r[Object.keys(v)[0]]? r[Object.keys(v)[0]] + Object.values(v)[0] : Object.values(v)[0];
             return r;
         },{});
+
+        delete pointsByPlayer.Sub;
+        delete pointsByPlayer['Own Goal'];
 
         const cmp = (a, b) => (a < b) - (a > b);
         const sortedPlayers = Object.keys(pointsByPlayer).sort(function(a, b) {

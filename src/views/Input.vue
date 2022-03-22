@@ -36,7 +36,7 @@
                     <ul v-if="props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team1]">
                         <li><strong>{{props.teams[props.games[reactives.day].Matches[reactives.match].team1].name}}</strong></li>
                         <li v-for="player in Object.keys(props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team1])" :key="player">
-                            {{player}} {{props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team1][player]}}
+                            {{props.players[player]? props.players[player].Name : player}} {{props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team1][player]}}
                         </li>
                     </ul>
                 </div>
@@ -44,7 +44,7 @@
                     <ul v-if="props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team2]">
                         <li><strong>{{props.teams[props.games[reactives.day].Matches[reactives.match].team2].name}}</strong></li>
                         <li v-for="player in Object.keys(props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team2])" :key="player">
-                            {{player}} {{props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team2][player]}}
+                            {{props.players[player]? props.players[player].Name : player}} {{props.games[reactives.day].Matches[reactives.match].points[props.games[reactives.day].Matches[reactives.match].team2][player]}}
                         </li>
                     </ul>
                 </div>
@@ -65,29 +65,33 @@
                 :style="{ backgroundColor: props.teams[props.games[reactives.day].Matches[reactives.match].team2].color }"
                 >{{props.teams[props.games[reactives.day].Matches[reactives.match].team2].name}}
             </button>
+            <button
+                v-on:click="addOrSubtract"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
+            >{{reactives.addMode? '+' : '-'}}</button>
         </div>
         <div v-if="reactives.team && reactives.teamSelected">
-            <div v-for="player in _.filter(props.players, ['Team', reactives.team])" :key="player">
+            <div v-for="player in Object.keys(_.pickBy(props.players, function(value, key){ return value.Team === reactives.team; }))" :key="player">
                 <button
                     v-on:click="playerScored(player)"
                     :style="{ backgroundColor: props.teams[reactives.team].color }"
                     :class="props.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
                     class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
-                    >{{player.Name}}
+                    >{{props.players[player].Name}}
                 </button>
             </div>
             <button
                 v-on:click="playerScored('Sub')"
                 :style="{ backgroundColor: props.teams[reactives.team].color }"
                 :class="props.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
-                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none opacity-50"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
                 >Sub
             </button>
             <button
                 v-on:click="playerScored('Own Goal')"
                 :style="{ backgroundColor: props.teams[reactives.team].color }"
                 :class="props.teams[reactives.team].color !== 'white'? 'text-white' : 'border-black'"
-                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none opacity-50"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium leading-6 transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none"
                 >Own Goal
             </button>
         </div>
@@ -174,6 +178,7 @@
         day: '',
         match: NaN,
         team: '',
+        addMode: true,
     })
 
     function dropdownFunction(){
@@ -200,14 +205,25 @@
         reactives.teamSelected = true;
     }
 
+    function addOrSubtract(){
+        reactives.addMode = !reactives.addMode;
+    }
+
     function playerScored(player){
-        let name = player.Name? player.Name : player;
         runTransaction(ref(db, `winter-21-22-2/Games/${reactives.day}/Matches/${reactives.match}`), (data) => {
-            data.points?
-                data.points[reactives.team]?
-                    data.points[reactives.team][name]? data.points[reactives.team][name] += 1 : data.points[reactives.team][name] = 1 :
-                    data.points[reactives.team] = {[name]: 1} :
-                data.points = {[reactives.team]:{[name]: 1}};
+            if(reactives.addMode){
+                data.points?
+                    data.points[reactives.team]?
+                        data.points[reactives.team][player]? data.points[reactives.team][player] += 1 : data.points[reactives.team][player] = 1 :
+                        data.points[reactives.team] = {[player]: 1} :
+                    data.points = {[reactives.team]:{[player]: 1}};
+            } else {
+                if(data.points){
+                    if(data.points[reactives.team]){
+                        data.points[reactives.team][player] - 1? data.points[reactives.team][player] -= 1 : delete data.points[reactives.team][player];
+                    }
+                }
+            }
             return data;
         });
     }
