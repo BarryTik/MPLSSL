@@ -83,7 +83,6 @@
       result[key] = reducedGames;
       return result;
     },{});
-    console.log(reactives.finishedGames);
     const totalScores = _.reduce(reducedFinishedGames, function(totalScoresResult, totalScoresValue, totalScoresKey){
       const totalTeamScores = _.reduce(totalScoresValue, function(totalTeamScoresResult, totalTeamScoresValue){
         if (totalTeamScoresValue){

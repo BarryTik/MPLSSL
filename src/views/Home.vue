@@ -28,7 +28,7 @@
   import { reactive } from 'vue';
   import _ from 'lodash';
   import jsonQuery from 'json-query';
-  import Lead from '@/components/Lead.vue'
+  import Lead from '@/components/Lead.vue';
 
   const props = defineProps({
       teams: Object,

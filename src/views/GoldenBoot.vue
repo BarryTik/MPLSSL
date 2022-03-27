@@ -24,7 +24,9 @@
     const props = defineProps({
         teams: Object,
         players: Object,
-        games: Object
+        games: Object,
+        finishedGames: Object,
+        totalScores: Object
     });
 
     const reactives = reactive({

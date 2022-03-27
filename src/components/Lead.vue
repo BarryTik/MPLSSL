@@ -8,7 +8,7 @@
       >
         MPLSSL
         <br />
-        <span class="text-indigo-600">{{title}}</span>
+        <span :style="{color: props.color}" class="text-indigo-600">{{title}}</span>
       </h2>
     </div>
   </div>
@@ -22,6 +22,12 @@
 
 <script setup>
 const props = defineProps({
-  title: String
+  title: String,
+  color: { 
+    type: String,
+    default() {
+      return 'rgb(79 70 229)';
+    }
+  }
 })
 </script>
