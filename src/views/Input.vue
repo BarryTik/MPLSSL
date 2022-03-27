@@ -9,7 +9,7 @@
         <div class="dropdown" v-show="reactives.showDropdown">
             <button v-on:click="dropdownFunction()" class="dropbtn">Choose Date and Match</button>
             <div id="gameDropdown" class="dropdown-content">
-                <a v-for="day in _.sortBy(Object.keys(props.games), function(o){return props.games[o].Date;})" :key="day" v-on:click="chooseDay(day)" href="#">{{day}}</a>
+                <a v-for="day in _.sortBy(Object.keys(props.games), function(o){return props.games[o].Date;})" :key="day" v-on:click="chooseDay(day)" href="#">{{props.games[day].title}}</a>
             </div>
         </div>
         <div v-if="props.games[reactives.day] && reactives.daySelected">
@@ -166,7 +166,9 @@
     const props = defineProps({
         teams: Object,
         players: Object,
-        games: Object
+        games: Object,
+        finishedGames: Object,
+        totalScores: Object,
     });
     
     const reactives = reactive({
