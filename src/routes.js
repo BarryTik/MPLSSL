@@ -3,6 +3,7 @@ import Standings from './views/Standings.vue'
 import Input from './views/Input.vue'
 import GoldenBoot from './views/GoldenBoot.vue'
 import Team from './views/Team.vue' 
+import Subs from './views/Subs.vue'
 
 /** @type {import('vue-router').RouterOptions['routes']} */
 export const routes = [
@@ -20,5 +21,6 @@ export const routes = [
     meta: {title: 'Team'},
     props: route => ({ team: route.params.team }),
   },
+  { path: '/subs', component: Subs, meta: {title: 'Subs'} },
   { path: '/:path(.*)', redirect: '/' },
 ]

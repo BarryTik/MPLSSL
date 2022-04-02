@@ -8,7 +8,7 @@
       >
         MPLSSL
         <br />
-        <span :style="{color: props.color}" class="text-indigo-600">{{title}}</span>
+        <span :style="{color: props.color}" :class="props.color == 'white'? 'outlined' : 'text-indigo-600'">{{title}}</span>
       </h2>
     </div>
   </div>
@@ -17,6 +17,10 @@
 <style scoped>
 .lead{
   padding: 3%;
+}
+.outlined{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
 </style>
 

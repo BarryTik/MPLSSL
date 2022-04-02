@@ -5,8 +5,8 @@
   <div v-if="reactives.loading">
     <h2>Loading</h2>
   </div>
-  <div v-else class="golden-boot bg-gray-50">
-    <table>
+  <div v-else class="golden-boot">
+    <table class="bg-gray-50">
         <tr v-for="player in reactives.sortedPlayers" :key="player">
             <td :style="{ backgroundColor: (props.players[player]? props.teams[props.players[player].Team].color : 'white'), color : (props.players[player]? (props.teams[props.players[player].Team].color === 'black' || props.teams[props.players[player].Team].color === ' blue' ? 'white':'black') :'black')}">{{props.players[player]? props.players[player].Name : player}}</td>
             <td>{{reactives.pointsByPlayer[player]}}</td>

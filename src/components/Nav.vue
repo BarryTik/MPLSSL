@@ -54,6 +54,7 @@
         <li class="text-gray-100"><router-link @click="closeNav" to="/Standings">Standings</router-link></li>
         <li class="text-gray-100"><router-link @click="closeNav" to="/GoldenBoot">Golden Boot</router-link></li>
         <li class="text-gray-100"><router-link @click="closeNav" to="/Input">Input</router-link></li>
+        <li class="text-gray-100"><router-link @click="closeNav" to="/Subs">Subs</router-link></li>
       </ul>
     </nav>
   </div>
@@ -64,6 +65,9 @@
       position: absolute;
       background-color: blue;
       position: fixed;
+  }
+  nav{
+    max-width: 100vw !important;
   }
 </style>
 <script>

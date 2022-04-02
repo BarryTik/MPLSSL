@@ -128,6 +128,8 @@
 }
 main{
   padding-top: 64px;
+  min-height: 100vh;
+  max-width: 100vw;
 }
 
 </style>

@@ -8,7 +8,7 @@
     <div v-else>
         <table class="bg-gray-50">
             <tr v-for="player in reactives.teamPlayers" :key="player" >
-                <td>{{player.Name}}</td>
+                <td>{{player.Captain? player.Name + ' (c)' : player.Name}}</td>
                 <td>{{player.Email}}</td>
                 <td>{{player.Gender}}</td>
                 <td>{{player.Paid}}</td>
@@ -55,4 +55,12 @@
 <style scoped>
     tr:nth-child(even) {background: #CCC}
     tr:nth-child(odd) {background: #FFF}
+
+    table{
+        display: block;
+        max-width: -moz-fit-content;
+        max-width: fit-content;
+        margin: 0 auto;
+        overflow-x: auto;
+    }
 </style>
