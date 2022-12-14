@@ -20,7 +20,7 @@
             md:text-2xl
           "
           @click="closeNav"
-          ><img src="favicon.ico">
+          ><img src="../../public/favicon.ico">
         </router-link>
         <!-- Mobile menu button -->
         <div @click="toggleNav" class="flex md:hidden">
