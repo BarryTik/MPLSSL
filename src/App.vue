@@ -122,8 +122,8 @@
 <style scoped>
 .background{
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: space;
+  /* background-size: cover; */
   background-attachment: fixed;
 }
 main{
@@ -135,7 +135,7 @@ main{
 </style>
 
 <template>
-  <div class="background" v-bind:style="{ backgroundImage:'url(../public/MPLSSL19.jpg)' }">
+  <div class="background" v-bind:style="{ backgroundImage:'url(../mplssl-logo-transparent.png)' }">
     <Nav/>
     <main>
       <router-view
