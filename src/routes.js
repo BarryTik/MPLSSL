@@ -5,11 +5,17 @@ import GoldenBoot from './views/GoldenBoot.vue'
 import Team from './views/Team.vue' 
 import Subs from './views/Subs.vue'
 import Schedule from './views/Schedule.vue'
+import About from './views/About.vue'
+import Rules from './views/Rules.vue'
+import Teams from './views/Teams.vue'
 
 /** @type {import('vue-router').RouterOptions['routes']} */
 export const routes = [
   { path: '/', component: Home, meta: { title: 'Home' } },
   { path: '/schedule', component: Schedule, meta: { title: 'Schedule' } },
+  { path: '/rules', component: Rules, meta: { title: 'Rules' } },
+  { path: '/about', component: About, meta: { title: 'About' } },
+  { path: '/teams', component: Teams, meta: { title: 'Teams' } },
   {
     path: '/standings',
     meta: { title: 'Standings' },

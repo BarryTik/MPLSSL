@@ -119,19 +119,40 @@
 
 </script>
 
-<style scoped>
-.background{
-  background-position: center;
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
-  background-attachment: fixed;
-}
-main{
-  padding-top: 64px;
-  min-height: 100vh;
-  max-width: 100vw;
-}
-
+<style>
+  .background{
+    background-position: center;
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    background-attachment: fixed;
+  }
+  main{
+    padding-top: 64px;
+    min-height: 100vh;
+    max-width: 100vw;
+  }
+  h1 {
+    font-size: 1.6em;
+    font-weight: 600;
+    background-color: rgba(256, 256, 256, 0.85);
+    margin-top: 10px;
+  }
+  .score {
+    background-color: white;
+  }
+  .vs {
+    font-weight: 600;
+    background-color: rgba(256, 256, 256, 0.85);
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+  }
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
 </style>
 
 <template>

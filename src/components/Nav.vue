@@ -52,8 +52,11 @@
         "
       >
         <li class="text-gray-100"><router-link @click="closeNav" to="/Schedule">Schedule</router-link></li>
+        <li class="text-gray-100"><router-link @click="closeNav" to="/Teams">Teams</router-link></li>
         <li class="text-gray-100"><router-link @click="closeNav" to="/Standings">Standings</router-link></li>
         <li class="text-gray-100"><router-link @click="closeNav" to="/GoldenBoot">Golden Boot</router-link></li>
+        <li class="text-gray-100"><router-link @click="closeNav" to="/About">About</router-link></li>
+        <li class="text-gray-100"><router-link @click="closeNav" to="/Rules">Rules</router-link></li>
         <li class="text-gray-100"><router-link @click="closeNav" to="/Input">Input</router-link></li>
         <li class="text-gray-100"><router-link @click="closeNav" to="/Subs">Subs</router-link></li>
       </ul>
