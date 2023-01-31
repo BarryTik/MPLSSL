@@ -41,5 +41,7 @@
 
   .standings{
     text-align: center;
+    max-height: 67vh;
+    overflow:scroll;
   }
 </style>
