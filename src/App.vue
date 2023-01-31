@@ -135,7 +135,7 @@ main{
 </style>
 
 <template>
-  <div class="background" v-bind:style="{ backgroundImage:'url(../public/MPLSSL19.jpg)' }">
+  <div class="background" v-bind:style="{ backgroundImage:'url(/MPLSSL19.jpg)' }">
     <Nav/>
     <main>
       <router-view
