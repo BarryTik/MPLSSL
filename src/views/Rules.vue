@@ -67,7 +67,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .rules {
   background-color: rgba(256, 256, 256, 0.95);
 }
@@ -84,10 +84,12 @@ li {
 li::before {
   content: '';
   display: inline-block;
-  height: 31px;
-  width: 25px;
-  background-image: url("/mplssl-logo-transparent.png");
+  height: 32px;
+  width: 32px;
+  background-image: url("/soccerball.ico");
   background-size: cover;
+  vertical-align: -40%;
+  margin-right: 3px;
 }
 
 </style>
