@@ -75,5 +75,19 @@
   font-size: 1.6em;
   font-weight: 600;
 }
+ul {
+  margin-left: 20px;
+}
+li {
+  list-style: none;
+}
+li::before {
+  content: '';
+  display: inline-block;
+  height: 31px;
+  width: 25px;
+  background-image: url("/mplssl-logo-transparent.png");
+  background-size: cover;
+}
 
 </style>
