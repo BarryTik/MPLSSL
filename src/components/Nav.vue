@@ -20,7 +20,7 @@
             md:text-2xl
           "
           @click="closeNav"
-          ><img src="/favicon.ico">
+          ><img class="home-logo" src="/mplssl-logo-transparent-inverted.png">
         </router-link>
         <!-- Mobile menu button -->
         <div @click="toggleNav" class="flex md:hidden">
@@ -68,6 +68,9 @@
   }
   nav{
     max-width: 100vw !important;
+  }
+  .home-logo{
+    max-height: 32px;
   }
 </style>
 <script>
