@@ -7,7 +7,7 @@
 
       <h2>FOULS</h2>
       <ul>
-        <li>Call your own fouls -  Remember sportsmanship is key in this league, respect each other. Again, don't be an asshole.</li>
+        <li>Call your own fouls - Remember sportsmanship is key in this league, respect each other. Again, don't be an asshole.</li>
         <li>We've all got varying levels of skill, let's keep the competition fun dammit!</li>
       </ul>
 
