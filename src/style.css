@@ -36,7 +36,7 @@ html, body, #app {
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
@@ -54,7 +54,7 @@ html, body, #app {
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
-}
+} */
 
 body {
   margin: 0;
