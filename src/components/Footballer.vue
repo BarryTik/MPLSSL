@@ -7,7 +7,7 @@
   interface TeamMember {
     teamName: string
     goals: number
-    year: string
+    year: number 
   }
 
   const route = useRoute()
@@ -49,8 +49,8 @@
             })
           }
         }
-
       }
+      console.log(result.sort((a, b) => b.year - a.year))
       teamMembers.value = result
     } catch (err) {
       console.error('Error fetching team data:', err)

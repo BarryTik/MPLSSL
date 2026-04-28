@@ -11,7 +11,7 @@
     router.push({ name: 'PlayerList' })
   }
   function sessionInfo() {
-    // TODO: Implement session info navigation
+    router.push({ name: 'SessionList' })
   }
 </script>
 
