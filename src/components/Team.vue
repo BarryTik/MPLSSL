@@ -99,7 +99,7 @@
         }
       })
 
-      members.value = await Promise.all(memberPromises)
+      members.value = (await Promise.all(memberPromises)).sort((a, b) => b.goals - a.goals)
     } catch (err) {
       errorMembers.value = err instanceof Error ? err.message : 'Error fetching members'
     } finally {

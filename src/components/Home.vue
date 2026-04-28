@@ -4,9 +4,6 @@
 
   const router = useRouter()
 
-  function reset() {
-    router.push({ name: 'Home' })
-  }
   function playerInfo() {
     router.push({ name: 'PlayerList' })
   }
@@ -18,11 +15,10 @@
 <template>
   <section class="center">
     <div class="hero">
-      <img :src="mplsslLogo" class="base" width="170" height="179" alt="" @click="reset"/>
+      <img :src="mplsslLogo" class="base" width="170" height="179" alt=""/>
     </div>
     <div class="button-container">
       <button class="stylish-button" @click="sessionInfo">Session Info</button>
-      <span class="divider">or</span>
       <button class="stylish-button" @click="playerInfo">Player Info</button>
     </div>
   </section>
@@ -40,7 +36,6 @@
 
   .hero {
     margin-bottom: 2rem;
-    cursor: pointer;
   }
 
   .base {

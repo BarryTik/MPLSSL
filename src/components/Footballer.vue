@@ -3,13 +3,17 @@
   import { useRoute } from 'vue-router'
   import { doc, Firestore, query, collectionGroup, where, getDoc, getDocs } from 'firebase/firestore'
   import { useDocument } from 'vuefire'
+  import { useRouter } from 'vue-router'
 
   interface TeamMember {
     teamName: string
+    teamId: string
+    sessionId: string
     goals: number
     year: number 
   }
 
+  const router = useRouter()
   const route = useRoute()
   const db = inject<Firestore>('db')!
   const teamMembers = ref<TeamMember[]>([])
@@ -44,19 +48,24 @@
           if (teamDoc.exists() && sessionDoc.exists()) {
             result.push({
               teamName: teamDoc.data().name || 'Unknown',
+              teamId: teamDoc.id,
+              sessionId: sessionDoc.id,
               goals: memberData.goals || 0,
               year: sessionDoc.data().year || 'Unknown'
             })
           }
         }
       }
-      console.log(result.sort((a, b) => b.year - a.year))
-      teamMembers.value = result
+      teamMembers.value = result.sort((a, b) => b.year - a.year)
     } catch (err) {
       console.error('Error fetching team data:', err)
     } finally {
       loadingMembers.value = false
     }
+  }
+
+  const navigateToTeamPage = (sessionId: string, teamId: string) => {
+    router.push({ name: 'Team', params: { teamId, sessionId } })
   }
 
   onMounted(() => {
@@ -86,7 +95,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(member, index) in teamMembers" :key="index">
+            <tr v-for="(member, index) in teamMembers" :key="index" @click="navigateToTeamPage(member.sessionId, member.teamId)">
               <td>{{ member.year }}</td>
               <td>{{ member.teamName }}</td>
               <td>{{ member.goals }}</td>
