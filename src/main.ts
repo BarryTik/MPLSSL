@@ -5,6 +5,7 @@ import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import './style.css'
 import App from './App.vue'
+import router from './router'
 
 // Firebase configuration
 const firebaseConfig = {
@@ -35,6 +36,9 @@ app.use(VueFire, {
         VueFireAuth()
     ]
 })
+
+// Use Vue Router
+app.use(router)
 
 // Provide Firestore and Auth to all components
 app.provide('db', db)
